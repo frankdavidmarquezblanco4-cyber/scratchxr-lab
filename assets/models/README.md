@@ -1,11 +1,5 @@
 # Modelos GLB propios
 
-Sube aquí modelos `.glb` que quieras alojar junto con SCRATCHXR LAB, por ejemplo `robot-aula.glb`.
+El visor carga por defecto `scratch-cat.glb`, aportado por el usuario de este proyecto. Antes de redistribuirlo o publicarlo, confirma que tienes derecho a hacerlo y añade la atribución/licencia exigida por su fuente. El proyecto no afirma afiliación ni respaldo oficial de Scratch.
 
-En el panel docente, abre **Ajustes** y escribe esta ruta relativa, sin barra inicial:
-
-```text
-assets/models/robot-aula.glb
-```
-
-Respeta las mayúsculas y minúsculas del nombre. La ruta debe comenzar por `assets/models/` y terminar en `.glb` o `.gltf`. Para publicar cambios, confirma el archivo en la rama `main` y espera a que GitHub Pages termine la implementación.
+Para cambiarlo, sube otro `.glb` a esta carpeta y escribe en Ajustes docentes la ruta relativa exacta, por ejemplo `assets/models/robot-aula.glb`. Respeta mayúsculas y minúsculas. Las rutas relativas funcionan en GitHub Pages. Una URL HTTPS externa podría estar sujeta a CORS.
