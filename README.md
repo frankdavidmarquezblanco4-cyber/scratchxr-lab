@@ -17,7 +17,7 @@ Plataforma educativa web para aprender programación por bloques creando, practi
 
 ### Para docentes
 
-- Panel docente diferenciado con navegación superior, vista previa por grado, edición de lecciones y quizzes, proyectos, herramientas de aprobación del aula y acceso directo del docente a la cámara (sujeto al permiso del navegador) y permisos individuales para estudiantes aprobados.
+- Panel docente diferenciado con navegación superior, vista previa por grado, edición de lecciones y quizzes, proyectos, gestión visible de acceso al curso, acceso directo del docente a la cámara (sujeto al permiso del navegador) y permisos individuales para estudiantes aprobados.
 - Seguimiento de perfiles locales y aprobados en línea, informes por periodo, exportación CSV, impresión y plantilla de notas 1–10 desde el panel docente.
 - Ajustes para cambiar el PIN, el modelo 3D predeterminado y la visibilidad de opciones de gamificación.
 
@@ -97,7 +97,6 @@ GitHub mantiene una [guía oficial de inicio de Pages](https://docs.github.com/e
 
 La ruta relativa se resuelve desde la ubicación del sitio e incluye automáticamente el subdirectorio del repositorio. Al cargarlo desde el mismo sitio, el modelo usa el mismo origen y normalmente evita los bloqueos CORS de un servidor externo. Si usas una URL alojada fuera de GitHub, ese servidor debe permitir solicitudes desde el sitio mediante sus encabezados CORS.
 
-
 ## Taller de bloques: retos y proyectos (Fase 10-C)
 
 - Incluye dos retos automáticos por grado (3.º a 11.º), con pistas progresivas y XP otorgados una sola vez al superarlos. Algunos bloques avanzados se evalúan por su estructura y por los resultados que el simulador puede observar; para validar sensores, eventos y comportamientos completos, usa Scratch real.
@@ -105,16 +104,16 @@ La ruta relativa se resuelve desde la ubicación del sitio e incluye automática
 - El panel docente incorpora la pestaña **Proyectos**, filtros por estudiante/grado, apertura en modo de solo lectura y una rúbrica local de creatividad, lógica y uso de bloques del nivel.
 - En **Ajustes**, el docente puede desactivar el Taller o la cámara y definir la sensibilidad por defecto de las manos. Sin cámara siguen disponibles ratón, teclado y pantalla táctil.
 - Las insignias del Taller incluyen **Arquitecto de bloques**, **Creador** y **Maestro del taller**. La insignia **Manos mágicas** depende de completar el Gimnasio de gestos.
+
 ## Progreso compartido entre dispositivos (fase 11-D)
 
 La integración remota es opcional y requiere configuración del docente. Consulta [`SUPABASE_SETUP.md`](SUPABASE_SETUP.md) para crear el proyecto, aplicar RLS y limitar los datos sincronizados. Ejecuta [`supabase/phase-11d.sql`](supabase/phase-11d.sql) en el SQL Editor de Supabase. Nunca incluyas la clave `service_role` en el sitio. La sincronización de perfiles antiguos sigue siendo manual desde Ajustes docentes; la fase 12 añade acceso aprobado y sincronización automática para nuevos perfiles. Requiere cuenta docente autenticada.
 
 El visor 3D carga por defecto el modelo de gato aportado por el usuario en `assets/models/scratch-cat.glb`. Verifica sus derechos de redistribución antes de publicar.
 
-
 ## Acceso aprobado y progreso en línea (fase 12)
 
-El docente configura Supabase, inicia sesión, crea un enlace/código de aula y revisa solicitudes identificadas solo por apodo y grado. Puede permitir, denegar o revocar el acceso. Las solicitudes y el progreso de estudiantes aprobados se actualizan automáticamente en línea; si el apodo y grado coinciden con un perfil local único, la app lo vincula sin perder sus avances. El informe docente combina progreso local y perfiles remotos autorizados por RLS. Las alertas en vivo requieren que el panel docente esté abierto y conectado. La plantilla de notas se encuentra en el panel docente y no contiene información de estudiantes. Ejecuta `supabase/phase-12-access-realtime.sql` después de la migración 11-D; los pasos, límites offline y privacidad se explican en [`SUPABASE_SETUP.md`](SUPABASE_SETUP.md).
+El docente configura Supabase, inicia sesión y abre la pestaña **Acceso al curso** del menú superior docente. Allí crea y copia el enlace completo y ve el código de aula de 12 caracteres. Cada solicitud aparece en esa misma pestaña, donde puede permitir, denegar o revocar el acceso por estudiante. El PIN local solo abre el panel y no autentica al docente: para generar el código o responder solicitudes debe configurar la URL y la clave publicable de Supabase en **Ajustes**, pulsar **Configurar conexión** e iniciar sesión con su cuenta docente. Las solicitudes y el progreso de estudiantes aprobados se actualizan automáticamente en línea; si el apodo y grado coinciden con un perfil local único, la app lo vincula sin perder sus avances. El informe docente combina progreso local y perfiles remotos autorizados por RLS. Las alertas en vivo requieren que la página esté abierta y conectada; las notificaciones del navegador requieren permiso explícito y no se envían si la página está cerrada (no hay Web Push configurado). La plantilla de notas se encuentra en el panel docente y no contiene información de estudiantes. Ejecuta `supabase/phase-12-access-realtime.sql` después de la migración 11-D; los pasos, límites offline y privacidad se explican en [`SUPABASE_SETUP.md`](SUPABASE_SETUP.md).
 
 ## Audios de misiones (fase 11-E)
 
@@ -128,7 +127,6 @@ La aplicación se puede instalar como PWA en HTTPS. Entra online una vez y esper
 
 La sincronización Supabase requiere conexión y no se cachea. Los audios MP3 opcionales se guardan al reproducirlos mientras haya conexión. Se necesita HTTPS (o `localhost`); abrir el HTML con `file://` no habilita PWA. Consulta [PWA_OFFLINE.md](PWA_OFFLINE.md) para instalación, actualizaciones y límites de almacenamiento. Los bundles distribuidos localmente mantienen sus avisos de licencia en `assets/vendor/`.
 
-
 ## Quizzes docentes compartidos (fase 13)
 
 Los quizzes personalizados guardados en el panel docente se publican a la cuenta docente autenticada de Supabase. Cada estudiante aprobado consulta solo los quizzes de su aula y grado desde **Retos**; la lectura se valida mediante su identificador de solicitud y secreto bearer aprobado. La publicación incluye solo contenido didáctico del quiz, no perfiles ni datos personales. Ejecuta `supabase/phase-13-shared-quizzes.sql` después de las fases 11-D y 12. La disponibilidad se actualiza al abrir Retos y en la comprobación periódica en línea.
@@ -136,4 +134,4 @@ Los quizzes personalizados guardados en el panel docente se publican a la cuenta
 
 ## Permisos de cámara por estudiante (fase 14)
 
-Desde **Ajustes**, el docente puede autorizar o retirar la cámara para cada estudiante aprobado de forma independiente; aprobar a una persona no habilita al resto. El permiso se consulta desde el dispositivo del estudiante y es denegado por defecto en Supabase. Para iniciar la cámara, el estudiante también debe aceptar el consentimiento en la app y el diálogo de permisos del navegador. El vídeo se procesa en el dispositivo y no se graba ni se envía. Ejecuta `supabase/phase-14-individual-camera-permissions.sql` después de la migración 12 (puede ir tras Phase 13); perfiles exclusivamente locales solo se pueden controlar en su propio navegador.
+Desde **Acceso al curso** en el menú docente, se puede autorizar o retirar la cámara para cada estudiante aprobado de forma independiente; aprobar a una persona no habilita al resto. El permiso se consulta desde el dispositivo del estudiante y es denegado por defecto en Supabase. Para iniciar la cámara, el estudiante también debe aceptar el consentimiento en la app y el diálogo de permisos del navegador. El vídeo se procesa en el dispositivo y no se graba ni se envía. Ejecuta `supabase/phase-14-individual-camera-permissions.sql` después de la migración 12 (puede ir tras Phase 13); perfiles exclusivamente locales solo se pueden controlar en su propio navegador.
