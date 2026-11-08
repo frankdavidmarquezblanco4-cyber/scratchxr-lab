@@ -1,31 +1,29 @@
-# Informes y calificación de avances · SCRATCHXR LAB
+# Informes, plantilla y calificación · SCRATCHXR LAB
 
-## Filtros e informes del panel docente
+## Vista docente, filtros y documentos
 
-En **Panel docente → Estudiantes**, el informe se puede filtrar por **grado**, **estudiante** y periodo: todo el historial fechado, últimos 7 días, últimos 30 días, este mes o un rango de fechas personalizado. La tabla, sus promedios y la descarga CSV respetan la selección. **Imprimir resumen** prepara una hoja apaisada con filtros aplicados, cantidad de estudiantes, estudiantes activos en el periodo, total y promedio de actividades fechadas, nota acumulada promedio y desglose por estudiante. Desde la vista de impresión se puede imprimir o guardar como PDF.
+En **Panel docente → Estudiantes**, se filtra por **grado**, **estudiante** y periodo: todo el historial fechado, últimos 7 días, últimos 30 días, este mes o un rango personalizado. La tabla, los promedios, la impresión y el CSV respetan esos filtros. Con una sesión Auth docente activa, el informe incorpora los perfiles aprobados y el progreso recibido desde Supabase; también conserva los perfiles locales del dispositivo. El informe remoto usa filas protegidas por RLS de la cuenta docente.
 
-La descarga se llama `informe-avances-scratchxr.csv`. Usa punto y coma como separador y coma decimal para Excel con configuración regional en español. Contiene los datos acumulados que ya se exportaban, los conteos por periodo, la última actividad y el detalle fechado de eventos que caen dentro del rango elegido. Solo incluye perfiles guardados en ese navegador/dispositivo; no consulta datos de Supabase.
+**Imprimir resumen** prepara una hoja apaisada con los filtros aplicados, cantidad de estudiantes, actividad fechada, nota acumulada promedio y desglose. Se puede imprimir o guardar como PDF. **Exportar resultados CSV** descarga `informe-avances-scratchxr.csv`, con punto y coma y coma decimal para Excel en español. La hoja incluye datos de progreso acumulado, conteos por periodo, última actividad y eventos fechados disponibles.
 
-## Cómo se calcula la nota acumulada
+**Descargar plantilla de notas** genera `plantilla-notas-scratchxr.csv`, compatible con Excel. Incluye 30 filas en blanco para apodo, grado, misiones, quizzes, retos, actividades, avance, calificación y observaciones; no incluye perfiles ni datos de estudiantes. Si se filtra un grado concreto, lo preselecciona en las filas. El informe y la plantilla se generan en el navegador desde el panel docente; el rol de la interfaz oculta esas acciones al alumnado. El CSV no es un archivo binario `.xlsx`.
+
+Los perfiles locales anteriores solo aparecen en este navegador. Los perfiles en línea aparecen después de que el docente se autentique, abra/cargue el panel de acceso y la migración Fase 12 esté instalada.
+
+## Cálculo de la nota acumulada
 
 `Nota = 1 + 9 × (actividades completadas ÷ actividades disponibles)`, redondeada a un decimal y limitada a 10,0.
 
-- **Misiones:** cuenta cada misión completada que corresponde al grado del perfil, de entre las misiones disponibles para ese grado.
-- **Quizzes/ejercicios:** suma las respuestas correctas del mejor intento guardado en cada quiz habilitado para el grado. Cada pregunta correcta equivale a una actividad.
-- **Retos/juegos:** cuenta cada reto o juego habilitado para el grado que se haya resuelto, una sola vez.
-- El denominador suma las misiones, preguntas de quizzes y retos/juegos disponibles para ese grado. La elegibilidad de quizzes y juegos incluye los que la aplicación permite jugar hasta ese grado.
-- Sin actividades registradas la nota es 1,0; con todas las actividades disponibles completadas es 10,0. El porcentaje muestra la proporción completada aparte de la escala de calificación.
+- **Misiones:** misiones completadas disponibles para el grado del perfil.
+- **Quizzes/ejercicios:** suma las respuestas correctas del mejor intento guardado en cada quiz disponible; cada pregunta correcta cuenta como una actividad.
+- **Retos/juegos:** retos o juegos del grado resueltos, una sola vez.
+- **Denominador:** misiones, preguntas de quizzes y retos/juegos disponibles hasta el grado correspondiente.
+- Sin actividad la nota es 1,0; completarlo todo equivale a 10,0. El porcentaje de avance se muestra por separado.
 
-Esta nota es **acumulada**: el filtro de periodo no la recalcula ni la convierte en una calificación separada para ese intervalo. El informe temporal muestra cuántos eventos se registraron dentro de las fechas. Rachas y retos diarios no modifican la nota acumulada; sí aparecen, cuando tienen fecha registrada, en los conteos del periodo.
+La nota es acumulada: los filtros por periodo no la recalculan ni producen una calificación separada para ese intervalo. Retos diarios y rachas aparecen en el conteo temporal cuando tienen fecha, pero no cambian la nota acumulada. La nota mide el avance que ScratchXR tiene registrado, no reemplaza el juicio pedagógico ni la revisión cualitativa.
 
-## Alcance y fechas
+## Historial y límites
 
-Desde esta versión se registra una fecha local en cada misión completada, intento de quiz, reto/juego resuelto, reto diario completado y ascenso intentado. El informe conserva hasta los **1.000 eventos fechados más recientes por perfil**.
+El informe admite hasta 1.000 eventos fechados por perfil. Misiones, quizzes, juegos, retos diarios y ascensos registran eventos locales; en perfiles aprobados, esos eventos recientes se sincronizan también con el progreso en línea. Los registros antiguos sin fecha no reciben fechas retrospectivas: siguen contando en el progreso acumulado, pero no en los periodos.
 
-Los perfiles anteriores conservan su progreso acumulado, pero misiones, juegos e intentos antiguos no tenían historial de fechas. Por eso no se les asigna una fecha ficticia y no aparecerán en filtros temporales; sí siguen contando en la tabla y la nota acumuladas. La selección **Todo el historial fechado** incluye todos los eventos con fecha disponibles desde la activación de esta función, no reconstruye el pasado anterior.
-
-El registro de fechas es local a cada navegador y no se sincroniza con Supabase. La exportación y la vista de impresión tampoco suben los informes a un servidor. Se exportan los apodos existentes; evita introducir nombres completos u otros datos identificables de menores.
-
-## Interpretación pedagógica
-
-La nota representa el **avance que ScratchXR tiene registrado**, no una evaluación integral del aprendizaje. Las actividades cuentan como unidades de progreso —no se ponderan por dificultad— y los quizzes se valoran por respuestas correctas del mejor intento, no por cantidad de intentos. Se recomienda usar el desglose y las evidencias junto con el criterio docente; la calificación no sustituye la revisión cualitativa del trabajo del estudiante.
+La plantilla está en blanco y el informe incluye apodos; evita ingresar nombres completos u otros datos identificables de menores. Para permisos, retención y seguridad de Supabase, consulta `SUPABASE_SETUP.md`.

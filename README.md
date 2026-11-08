@@ -7,7 +7,7 @@ Plataforma educativa web para aprender programación por bloques creando, practi
 ### Para estudiantes
 
 - **Misiones progresivas** organizadas por grado, con explicaciones, actividades y reflexión.
-- **Teoría** de bloques, algoritmos, ejemplos y glosario adaptados al nivel.
+- **Teoría ampliada** por bandas de grado, con conceptos explicados, ejemplos paso a paso, errores frecuentes, glosario y reto guiado.
 - **Retos**: quizzes, ordenar código y encontrar errores, con retroalimentación y progreso.
 - **Laboratorio XR**: visor 3D, acceso a RA cuando el dispositivo lo admite, escena RV con A-Frame y Taller de bloques 3D con ratón, tacto, gestos de mano y controladores WebXR.
 - **Logros y gamificación**: XP, insignias, racha diaria, reto diario, desafío de ascenso y tabla de líderes local.
@@ -17,8 +17,8 @@ Plataforma educativa web para aprender programación por bloques creando, practi
 
 ### Para docentes
 
-- Panel con acceso mediante PIN, vista previa por grado, edición de lecciones y quizzes.
-- Seguimiento de estudiantes de este dispositivo, exportación CSV y portabilidad de contenido JSON.
+- Panel con acceso mediante PIN, vista previa por grado, edición de lecciones y quizzes, y herramientas de aprobación para el aula en línea.
+- Seguimiento de perfiles locales y aprobados en línea, informes por periodo, exportación CSV, impresión y plantilla de notas 1–10 desde el panel docente.
 - Ajustes para cambiar el PIN, el modelo 3D predeterminado y la visibilidad de opciones de gamificación.
 
 ## Archivos del repositorio
@@ -61,9 +61,9 @@ En la pantalla inicial, selecciona **Entrar como docente** e introduce el PIN in
 
 ## Datos y limitaciones
 
-Por defecto, los perfiles, XP, resultados, ajustes y proyectos del Taller 3D se guardan en el almacenamiento local del navegador; no se envían a un servidor. Existe una sincronización opcional y manual con Supabase, que requiere configuración y conexión y envía solo los datos mínimos descritos en `SUPABASE_SETUP.md`. Borrar datos del navegador o cambiar de dispositivo puede hacer que se pierdan los perfiles locales. El PIN docente también se guarda localmente y no sustituye autenticación de servidor.
+Por defecto, los perfiles, XP, resultados, ajustes y proyectos del Taller 3D se guardan en el navegador. La integración opcional de Supabase ofrece solicitudes de acceso con aprobación docente, sincronización automática del progreso aprobado y una migración manual para perfiles anteriores; requiere una cuenta docente y conexión. La sincronización no incluye lecciones ni preferencias docentes. Revisa `SUPABASE_SETUP.md` antes de activarla. Borrar datos del navegador o cambiar de dispositivo puede eliminar perfiles locales y secretos de acceso guardados en ese dispositivo. El PIN docente local no sustituye autenticación de servidor.
 
-La voz usa Web Speech API. Las voces disponibles dependen del navegador y del sistema operativo. La sincronización Supabase requiere internet; el acceso nativo a RA/RV sigue sujeto al dispositivo, navegador, permisos y servicios compatibles.
+La voz usa Web Speech API. Las voces disponibles dependen del navegador y del sistema operativo. Las solicitudes y decisiones de acceso, la autenticación docente y la sincronización en vivo requieren internet. Una sesión estudiantil ya aprobada en el dispositivo puede continuar offline y sincronizar después; una revocación no llega al dispositivo hasta reconectarse. Lecciones y preferencias editadas siguen siendo locales. El acceso nativo a RA/RV depende del dispositivo, navegador, permisos y servicios compatibles.
 
 ## Publicar en GitHub Pages desde la web de GitHub
 
@@ -107,9 +107,15 @@ La ruta relativa se resuelve desde la ubicación del sitio e incluye automática
 - Las insignias del Taller incluyen **Arquitecto de bloques**, **Creador** y **Maestro del taller**. La insignia **Manos mágicas** depende de completar el Gimnasio de gestos.
 ## Progreso compartido entre dispositivos (fase 11-D)
 
-La integración remota es opcional y requiere configuración del docente. Consulta [`SUPABASE_SETUP.md`](SUPABASE_SETUP.md) para crear el proyecto, aplicar RLS y limitar los datos sincronizados. Ejecuta [`supabase/phase-11d.sql`](supabase/phase-11d.sql) en el SQL Editor de Supabase. Nunca incluyas la clave `service_role` en el sitio. La sincronización se inicia manualmente desde Ajustes docentes y requiere cuenta docente autenticada.
+La integración remota es opcional y requiere configuración del docente. Consulta [`SUPABASE_SETUP.md`](SUPABASE_SETUP.md) para crear el proyecto, aplicar RLS y limitar los datos sincronizados. Ejecuta [`supabase/phase-11d.sql`](supabase/phase-11d.sql) en el SQL Editor de Supabase. Nunca incluyas la clave `service_role` en el sitio. La sincronización de perfiles antiguos sigue siendo manual desde Ajustes docentes; la fase 12 añade acceso aprobado y sincronización automática para nuevos perfiles. Requiere cuenta docente autenticada.
 
 El visor 3D carga por defecto el modelo de gato aportado por el usuario en `assets/models/scratch-cat.glb`. Verifica sus derechos de redistribución antes de publicar.
+
+
+## Acceso aprobado y progreso en línea (fase 12)
+
+El docente configura Supabase, inicia sesión, crea un enlace/código de aula y revisa solicitudes identificadas solo por apodo y grado. Puede permitir, denegar o revocar el acceso. Las solicitudes y el progreso de estudiantes aprobados se actualizan automáticamente en línea; si el apodo y grado coinciden con un perfil local único, la app lo vincula sin perder sus avances. El informe docente combina progreso local y perfiles remotos autorizados por RLS. Las alertas en vivo requieren que el panel docente esté abierto y conectado. La plantilla de notas se encuentra en el panel docente y no contiene información de estudiantes. Ejecuta `supabase/phase-12-access-realtime.sql` después de la migración 11-D; los pasos, límites offline y privacidad se explican en [`SUPABASE_SETUP.md`](SUPABASE_SETUP.md).
+
 ## Audios de misiones (fase 11-E)
 
 El botón **Escuchar** reproduce `assets/audio/<id-de-la-misión>.mp3` cuando el archivo existe; si falta o no puede reproducirse, utiliza la voz del navegador. La carpeta [`assets/audio/`](assets/audio/README.md) incluye el inventario exacto de archivos MP3 para las 39 misiones incluidas y pasos de generación/publicación en GitHub.
