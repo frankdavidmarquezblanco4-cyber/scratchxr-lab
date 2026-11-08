@@ -1,7 +1,7 @@
 /* SCRATCHXR LAB · PWA offline cache */
 'use strict';
 
-const CACHE_NAME = 'scratchxr-offline-v16';
+const CACHE_NAME = 'scratchxr-offline-v17';
 const APP_SHELL = [
   './',
   './index.html',
