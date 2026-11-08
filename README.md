@@ -17,7 +17,7 @@ Plataforma educativa web para aprender programación por bloques creando, practi
 
 ### Para docentes
 
-- Panel con acceso mediante PIN, vista previa por grado, edición de lecciones y quizzes, y herramientas de aprobación para el aula en línea.
+- Panel docente diferenciado con navegación superior, vista previa por grado, edición de lecciones y quizzes, proyectos, herramientas de aprobación del aula y acceso directo del docente a la cámara (sujeto al permiso del navegador) y permisos individuales para estudiantes aprobados.
 - Seguimiento de perfiles locales y aprobados en línea, informes por periodo, exportación CSV, impresión y plantilla de notas 1–10 desde el panel docente.
 - Ajustes para cambiar el PIN, el modelo 3D predeterminado y la visibilidad de opciones de gamificación.
 
@@ -56,12 +56,12 @@ En la pantalla inicial, selecciona **Entrar como docente** e introduce el PIN in
 - **3D:** navegador moderno con WebGL. Tras preparar la PWA online, el visor y el gato adjunto funcionan offline. Los GLB personalizados remotos requieren conexión hasta que se descarguen.
 - **RA:** el sitio debe estar publicado mediante **HTTPS**. Se necesita un dispositivo compatible. En Android suele requerirse ARCore y Scene Viewer; en iPhone o iPad se usa Quick Look con Safari. La aplicación comprueba la capacidad de `model-viewer`; si no está disponible, conserva el modo 3D y no simula RA.
 - **RV:** se necesita un navegador y dispositivo compatibles con WebXR; para una experiencia inmersiva, un visor de RV compatible. Si el navegador no admite RV, aún puedes usar 3D.
-- **Cámara:** la RA real o el control opcional con manos pueden solicitar permiso del navegador. El Taller 3D funciona también con ratón y pantalla táctil, sin cámara. El procesamiento de manos se realiza en el dispositivo; después de la preparación PWA, sus recursos locales están disponibles offline. Para explorar un modelo local en 3D no se necesita permiso de cámara.
+- **Cámara:** los estudiantes necesitan autorización individual del docente, su propio consentimiento y el permiso del navegador. El docente puede habilitar a una sola persona; la RA real o el control opcional con manos pueden solicitar el permiso nativo del navegador. El Taller 3D funciona también con ratón y pantalla táctil, sin cámara. El procesamiento de manos se realiza en el dispositivo; no se graba ni se sube vídeo. Para explorar un modelo local en 3D no se necesita permiso de cámara.
 - El acceso real a RA/RV depende del dispositivo, navegador, permisos y compatibilidad de sus servicios nativos.
 
 ## Datos y limitaciones
 
-Por defecto, los perfiles, XP, resultados, ajustes y proyectos del Taller 3D se guardan en el navegador. La integración opcional de Supabase ofrece solicitudes de acceso con aprobación docente, sincronización automática del progreso aprobado y una migración manual para perfiles anteriores; requiere una cuenta docente y conexión. La sincronización no incluye lecciones ni preferencias docentes. Revisa `SUPABASE_SETUP.md` antes de activarla. Borrar datos del navegador o cambiar de dispositivo puede eliminar perfiles locales y secretos de acceso guardados en ese dispositivo. El PIN docente local no sustituye autenticación de servidor.
+Por defecto, los perfiles, XP, resultados, ajustes y proyectos del Taller 3D se guardan en el navegador. La integración opcional de Supabase ofrece solicitudes de acceso con aprobación docente, sincronización automática del progreso aprobado, quizzes docentes compartidos con estudiantes aprobados y una migración manual para perfiles anteriores; requiere una cuenta docente, las migraciones 11-D y 12–14, y conexión. El uso estudiantil de cámara requiere además permiso individual del docente, consentimiento del estudiante y permiso del navegador; no se graba ni se sube vídeo. La sincronización no incluye lecciones ni preferencias docentes. Revisa `SUPABASE_SETUP.md` antes de activarla. Borrar datos del navegador o cambiar de dispositivo puede eliminar perfiles locales y secretos de acceso guardados en ese dispositivo. El PIN docente local no sustituye autenticación de servidor.
 
 La voz usa Web Speech API. Las voces disponibles dependen del navegador y del sistema operativo. Las solicitudes y decisiones de acceso, la autenticación docente y la sincronización en vivo requieren internet. Una sesión estudiantil ya aprobada en el dispositivo puede continuar offline y sincronizar después; una revocación no llega al dispositivo hasta reconectarse. Lecciones y preferencias editadas siguen siendo locales. El acceso nativo a RA/RV depende del dispositivo, navegador, permisos y servicios compatibles.
 
@@ -127,3 +127,13 @@ El botón **Escuchar** reproduce `assets/audio/<id-de-la-misión>.mp3` cuando el
 La aplicación se puede instalar como PWA en HTTPS. Entra online una vez y espera a que el indicador muestre **modo sin conexión preparado**: se guardan el HTML, los recursos XR, el modelo local del gato, las fuentes 3D y MediaPipe para el seguimiento de manos (aprox. 31 MB). Después, las funciones locales, incluidos el contenido, el panel docente, el gato 3D y el taller A-Frame, pueden usarse sin red. El progreso permanece en el almacenamiento local del navegador.
 
 La sincronización Supabase requiere conexión y no se cachea. Los audios MP3 opcionales se guardan al reproducirlos mientras haya conexión. Se necesita HTTPS (o `localhost`); abrir el HTML con `file://` no habilita PWA. Consulta [PWA_OFFLINE.md](PWA_OFFLINE.md) para instalación, actualizaciones y límites de almacenamiento. Los bundles distribuidos localmente mantienen sus avisos de licencia en `assets/vendor/`.
+
+
+## Quizzes docentes compartidos (fase 13)
+
+Los quizzes personalizados guardados en el panel docente se publican a la cuenta docente autenticada de Supabase. Cada estudiante aprobado consulta solo los quizzes de su aula y grado desde **Retos**; la lectura se valida mediante su identificador de solicitud y secreto bearer aprobado. La publicación incluye solo contenido didáctico del quiz, no perfiles ni datos personales. Ejecuta `supabase/phase-13-shared-quizzes.sql` después de las fases 11-D y 12. La disponibilidad se actualiza al abrir Retos y en la comprobación periódica en línea.
+
+
+## Permisos de cámara por estudiante (fase 14)
+
+Desde **Ajustes**, el docente puede autorizar o retirar la cámara para cada estudiante aprobado de forma independiente; aprobar a una persona no habilita al resto. El permiso se consulta desde el dispositivo del estudiante y es denegado por defecto en Supabase. Para iniciar la cámara, el estudiante también debe aceptar el consentimiento en la app y el diálogo de permisos del navegador. El vídeo se procesa en el dispositivo y no se graba ni se envía. Ejecuta `supabase/phase-14-individual-camera-permissions.sql` después de la migración 12 (puede ir tras Phase 13); perfiles exclusivamente locales solo se pueden controlar en su propio navegador.
