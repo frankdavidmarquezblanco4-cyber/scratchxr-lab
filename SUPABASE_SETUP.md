@@ -1,6 +1,12 @@
-# SCRATCHXR LAB · Supabase, acceso docente y sincronización
+# SCRATCHXR LAB · Supabase legado (modo público no lo usa)
 
-## Qué ofrece la integración
+## Referencia de versiones anteriores
+
+> **Importante:** la versión pública actual de SCRATCHXR LAB permite el acceso sin docente y guarda los perfiles/progresos localmente. No configura ni consulta Supabase, y no requiere ejecutar SQL. El resto de esta guía describe la arquitectura docente de una versión anterior y se conserva solo como referencia para una eventual restauración. No borres ni cambies datos existentes en tu proyecto por esta actualización.
+
+La aplicación conserva dos caminos. La sincronización de **Fase 11-D** continúa disponible para importar o subir, manualmente desde el panel docente, perfiles locales existentes. La **Fase 12** añade el flujo en línea para nuevas solicitudes: el docente autenticado crea un enlace de aula; el estudiante solicita acceso usando un apodo y su grado; el docente ve la solicitud en tiempo real y permite, deniega o revoca el acceso. Después de aprobarse, el progreso del perfil se guarda localmente y se envía automáticamente a Supabase cuando hay conexión. El informe docente combina perfiles del dispositivo con perfiles aprobados en línea.
+
+La notificación se muestra en el panel docente mientras la página está abierta y conectada. El docente puede pedir permiso al navegador para recibir una notificación del sistema; esto **no** es una notificación push y no funciona si el sitio está cerrado, suspendido o sin internet. Las solicitudes pendientes permanecen en Supabase para que el docente las encuentre al volver a abrir Ajustes.
 
 La aplicación conserva dos caminos. La sincronización de **Fase 11-D** continúa disponible para importar o subir, manualmente desde el panel docente, perfiles locales existentes. La **Fase 12** añade el flujo en línea para nuevas solicitudes: el docente autenticado crea un enlace de aula; el estudiante solicita acceso usando un apodo y su grado; el docente ve la solicitud en tiempo real y permite, deniega o revoca el acceso. Después de aprobarse, el progreso del perfil se guarda localmente y se envía automáticamente a Supabase cuando hay conexión. El informe docente combina perfiles del dispositivo con perfiles aprobados en línea.
 

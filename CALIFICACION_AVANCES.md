@@ -1,5 +1,7 @@
 # Informes, plantilla y calificación · SCRATCHXR LAB
 
+> **Documento histórico:** describe el panel docente de versiones anteriores. En la versión pública actual ese panel y sus acciones no aparecen; los perfiles y avances se guardan localmente y no se sincronizan con Supabase.
+
 ## Vista docente, filtros y documentos
 
 En **Panel docente → Estudiantes**, se filtra por **grado**, **estudiante** y periodo: todo el historial fechado, últimos 7 días, últimos 30 días, este mes o un rango personalizado. La tabla, los promedios, la impresión y el CSV respetan esos filtros. Con una sesión Auth docente activa, el informe incorpora los perfiles aprobados y el progreso recibido desde Supabase; también conserva los perfiles locales del dispositivo. El informe remoto usa filas protegidas por RLS de la cuenta docente.
