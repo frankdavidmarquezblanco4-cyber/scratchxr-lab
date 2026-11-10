@@ -24,7 +24,7 @@ El control de manos es opcional. Para activarlo en línea se necesita HTTPS (loc
 
 ## Publicación y actualización
 
-Publica en la raíz `index.html`, `manifest.webmanifest`, `service-worker.js`, `assets/` y los demás archivos, conservando las rutas relativas. GitHub Pages con HTTPS y otros servidores HTTPS son válidos; `file://` no admite service workers. El app shell actual usa `scratchxr-offline-v22`. Al cambiar recursos precargados, incrementa `CACHE_NAME`; al activarse, el service worker elimina sus cachés anteriores sin borrar `localStorage` ni los perfiles/progresos locales.
+Publica en la raíz `index.html`, `manifest.webmanifest`, `service-worker.js`, `assets/` y los demás archivos, conservando las rutas relativas. GitHub Pages con HTTPS y otros servidores HTTPS son válidos; `file://` no admite service workers. El app shell actual usa `scratchxr-offline-v23`. Al cambiar recursos precargados, incrementa `CACHE_NAME`; al activarse, el service worker elimina sus cachés anteriores sin borrar `localStorage` ni los perfiles/progresos locales.
 
 ## Privacidad y almacenamiento
 
