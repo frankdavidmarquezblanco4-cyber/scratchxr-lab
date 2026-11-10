@@ -15,7 +15,7 @@
 - [x] **Flujo de quiz y progreso.** Un quiz de 8 preguntas llegó al resultado (8/8, 80 XP); al recargar y reanudar el perfil guardado, se conservó el mejor puntaje. El cambio de grado del perfil de 3° a 11° también sobrevivió a recargar y reanudar.
 - [x] **Perfil local.** Crear, elegir y continuar un perfil guardado funciona en el mismo navegador/dispositivo. No se envía información personal a un servidor; el progreso no se sincroniza automáticamente entre dispositivos.
 - [x] **Caché PWA.** `service-worker.js` y `PWA_OFFLINE.md` están preparados en v24 para reemplazar la caché anterior.
-- [ ] **Publicación pendiente.** El botón RV, el indicador de estado y la caché v24 están corregidos en el repositorio local; aún falta publicar y verificar esta revisión en GitHub Pages.
+- [x] **Publicación.** GitHub Pages completó el build del commit `471cddd`; producción confirmó el gato GLB visible, la vista RV a pantalla completa con salida, la caché v24 y cero errores JavaScript.
 
 ## Funciones de RV ya existentes
 
