@@ -1,13 +1,22 @@
-# Modo público y RV exclusiva · trabajo actual
+# Estado de ScratchXR Lab
 
-- [x] **Quitar RA de la experiencia visible.** Una sola pestaña XR: Laboratorio de RV. Se ocultan los paneles y botones antiguos de RA, se desactiva `model-viewer` AR y se elimina la superposición de vídeo del Taller.
-- [x] **Mejorar RV.** Diez estaciones educativas se pueden seleccionar con mouse/tacto, teclado (Enter/Espacio) o gatillo de los controladores izquierdo/derecho. Cada estación muestra su propósito, indica el grado requerido cuando está bloqueada y enlaza a Teoría cuando está disponible. Se explican los controles para visor y para pantalla.
-- [x] **Entrada pública sin aprobación.** Cualquier visitante crea un perfil local usando solo apodo y grado; no requiere código de aula, cuenta, solicitud ni aprobación. Hay un botón para cambiar de perfil sin borrar avances locales.
-- [x] **Ocultar el rol docente.** El botón, panel, PIN, aprobaciones y ajustes docentes quedan fuera de la interfaz pública. El código heredado se conserva para una posible restauración; no se borran datos ni se ha ejecutado SQL.
-- [x] **Privacidad local.** Se omiten las consultas/sincronización de acceso, progreso, cámara docente y quizzes Supabase. La cámara de manos es opcional, exige consentimiento y permiso nativo del navegador; el video no se graba ni se transmite.
-- [x] **PWA y documentación.** Service Worker actualizado a `scratchxr-offline-v19`; README, guía offline y documentos de referencia alineados.
-- [x] **Prueba en Chromium/WebGL local.** Verificado: perfil público y persistencia al recargar, una sola experiencia XR visible, diez estaciones, selección por mouse, detalle por grado, navegación a Teoría, controladores de ambas manos y ausencia de errores JavaScript en el escenario RV.
+## Versión pública anterior
 
-## Pendiente de publicación
+- [x] **Acceso público y perfiles locales.** Cualquier persona entra con apodo y grado; se pueden reanudar perfiles guardados en el mismo navegador/dispositivo.
+- [x] **RV exclusiva.** Diez estaciones interactivas, con mouse/tacto, teclado o controladores y acceso a Teoría.
+- [x] **PWA anterior.** GitHub Pages servía el commit `fcdadd6` y `scratchxr-offline-v21` antes del trabajo actual.
 
-Los cambios están en el directorio de trabajo y aún no se han publicado en GitHub Pages. Phase 15 (clases por grado y fecha) permanece pausada en un stash local y no se ha ejecutado en Supabase.
+## Solicitud actual: gato e interacción con bloques en RV
+
+- [x] **Gato Scratch.** El GLB se conserva; en la escena probada mide 2.65 unidades, está adelantado y elevado respecto a las estaciones y rota lentamente para seguir reconocible.
+- [x] **Bloques Scratch por grado.** El Taller genera bloques 3D desde la paleta y conserva el filtro educativo por grado. La pinza de MediaPipe mueve bloques; pellizcar con dos manos aumenta/reduce el bloque seleccionado; girar ambas manos rota el seleccionado; «Voltear bloque» y pulgar arriba con un bloque seleccionado lo voltean. Ratón, tacto, teclado y controladores siguen disponibles.
+- [x] **Guardar/deshacer transformaciones.** Tamaño, giro y volteo se guardan en el proyecto nombrado (la aplicación solicita un nombre) y se restauran al reabrir; el volteo puede revertirse con Deshacer.
+- [x] **Consentimiento y cámara.** La cámara no se solicita al abrir el Taller: exige consentimiento y permiso del navegador; el video se procesa localmente y no se graba ni se envía. Chromium confirmó que no hay flujo antes del consentimiento, que el botón alterna a «Apagar» y que la pista termina al apagarla.
+- [x] **Sin RA visible.** El selector del Taller solo ofrece 3D y RV; se mantiene oculta la antigua superposición de cámara.
+- [x] **Verificación local.** Chromium cargó el gato y bloques 3D, comprobó la herramienta de volteo y ausencia de errores JavaScript; la reapertura de un proyecto restauró el giro de 180°. En móvil (390 px) y escritorio el gato quedó dentro del canvas. El dispositivo de prueba no contenía cámara física: se probó el ciclo con cámara simulada; la interacción física con las manos requiere cámara real y HTTPS.
+- [x] **PWA/documentación.** La caché y la guía offline están en v22.
+- [ ] **Publicar en GitHub Pages y revisar el contenido live.** El código v22 todavía está local y no se ha desplegado.
+
+## Trabajo pausado
+
+Phase 15 (gestión de clases por grado/fecha) permanece pausada; su migración SQL no se ha ejecutado en producción y no debe retomarse salvo petición expresa del usuario.
