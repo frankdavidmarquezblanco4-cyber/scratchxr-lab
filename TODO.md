@@ -15,7 +15,7 @@
 - [x] **Sin RA visible.** El selector del Taller solo ofrece 3D y RV; se mantiene oculta la antigua superposición de cámara.
 - [x] **Verificación local.** Chromium cargó el gato y bloques 3D, comprobó la herramienta de volteo y ausencia de errores JavaScript; la reapertura de un proyecto restauró el giro de 180°. En móvil (390 px) y escritorio el gato quedó dentro del canvas. El dispositivo de prueba no contenía cámara física: se probó el ciclo con cámara simulada; la interacción física con las manos requiere cámara real y HTTPS.
 - [x] **PWA/documentación.** La caché y la guía offline están en v23.
-- [ ] **Publicar en GitHub Pages y revisar el contenido live.** La corrección del gato en v23 todavía está local y no se ha desplegado.
+- [x] **Publicación.** GitHub Pages terminó el build del commit `7374f2f`; la URL pública cargó el GLB `assets/models/scratch-cat.glb` con el rostro visible, la posición frontal y PWA v23, sin errores JavaScript.
 
 ## Trabajo pausado
 
