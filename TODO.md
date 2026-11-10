@@ -2,21 +2,28 @@
 
 ## Versión pública anterior
 
-- [x] **Acceso público y perfiles locales.** Cualquier persona entra con apodo y grado; se pueden reanudar perfiles guardados en el mismo navegador/dispositivo.
-- [x] **RV exclusiva.** Diez estaciones interactivas, con mouse/tacto, teclado o controladores y acceso a Teoría.
-- [x] **PWA anterior.** GitHub Pages servía el commit `fcdadd6` y `scratchxr-offline-v21` antes del trabajo actual.
+- GitHub Pages servía la versión con el gato Scratch y acceso público con perfiles locales. El build público más reciente previo a esta corrección era el commit `0c43ef7` (aplicación web `7374f2f`, caché PWA v23).
+- Phase 15 (gestión de clases por grado/fecha) permanece pausada; su migración SQL no se ha ejecutado en producción y no debe retomarse salvo petición expresa.
 
-## Solicitud actual: gato e interacción con bloques en RV
+## Solicitud actual: revisar gato, entrada RV y datos
 
-- [x] **Gato Scratch.** El GLB se conserva; en la escena probada mide 2.65 unidades, está adelantado y elevado respecto a las estaciones y mantiene una orientación frontal fija, para no terminar mostrando la espalda.
-- [x] **Bloques Scratch por grado.** El Taller genera bloques 3D desde la paleta y conserva el filtro educativo por grado. La pinza de MediaPipe mueve bloques; pellizcar con dos manos aumenta/reduce el bloque seleccionado; girar ambas manos rota el seleccionado; «Voltear bloque» y pulgar arriba con un bloque seleccionado lo voltean. Ratón, tacto, teclado y controladores siguen disponibles.
-- [x] **Guardar/deshacer transformaciones.** Tamaño, giro y volteo se guardan en el proyecto nombrado (la aplicación solicita un nombre) y se restauran al reabrir; el volteo puede revertirse con Deshacer.
-- [x] **Consentimiento y cámara.** La cámara no se solicita al abrir el Taller: exige consentimiento y permiso del navegador; el video se procesa localmente y no se graba ni se envía. Chromium confirmó que no hay flujo antes del consentimiento, que el botón alterna a «Apagar» y que la pista termina al apagarla.
-- [x] **Sin RA visible.** El selector del Taller solo ofrece 3D y RV; se mantiene oculta la antigua superposición de cámara.
-- [x] **Verificación local.** Chromium cargó el gato y bloques 3D, comprobó la herramienta de volteo y ausencia de errores JavaScript; la reapertura de un proyecto restauró el giro de 180°. En móvil (390 px) y escritorio el gato quedó dentro del canvas. El dispositivo de prueba no contenía cámara física: se probó el ciclo con cámara simulada; la interacción física con las manos requiere cámara real y HTTPS.
-- [x] **PWA/documentación.** La caché y la guía offline están en v23.
-- [x] **Publicación.** GitHub Pages terminó el build del commit `7374f2f`; la URL pública cargó el GLB `assets/models/scratch-cat.glb` con el rostro visible, la posición frontal y PWA v23, sin errores JavaScript.
+- [x] **Causa del botón RV.** En equipos sin WebXR, la aplicación solo activaba «ENTRAR EN RV» si detectaba un visor; por eso el control parecía no funcionar aunque la escena 3D sí existía.
+- [x] **Entrada RV corregida.** Con visor compatible se intenta RV inmersiva; si no hay visor, «VER RV EN PANTALLA» amplía la escena a pantalla completa. El botón «Salir de pantalla completa» se conserva dentro de la escena; Escape también permite volver. El fallback se probó en escritorio y móvil (390 × 844 px).
+- [x] **Gato Scratch.** Se mantiene `assets/models/scratch-cat.glb`; en las pruebas locales el modelo cargó y quedó visible, con orientación frontal fija, incluso en el modo de pantalla completa móvil.
+- [x] **Indicadores públicos.** El encabezado muestra RV, no un estado de RA residual; el Taller ofrece únicamente 3D y RV.
+- [x] **Auditoría de datos por grado.** En Chromium, los grados 3°–11° mostraron teoría y retos correspondientes al grado, quizzes jugables y 15 insignias; no hubo excepciones JavaScript. Misiones: seis por grado de 3° a 8° y una misión por grado de 9° a 11° en el catálogo actual.
+- [x] **Flujo de quiz y progreso.** Un quiz de 8 preguntas llegó al resultado (8/8, 80 XP); al recargar y reanudar el perfil guardado, se conservó el mejor puntaje. El cambio de grado del perfil de 3° a 11° también sobrevivió a recargar y reanudar.
+- [x] **Perfil local.** Crear, elegir y continuar un perfil guardado funciona en el mismo navegador/dispositivo. No se envía información personal a un servidor; el progreso no se sincroniza automáticamente entre dispositivos.
+- [x] **Caché PWA.** `service-worker.js` y `PWA_OFFLINE.md` están preparados en v24 para reemplazar la caché anterior.
+- [ ] **Publicación pendiente.** El botón RV, el indicador de estado y la caché v24 están corregidos en el repositorio local; aún falta publicar y verificar esta revisión en GitHub Pages.
 
-## Trabajo pausado
+## Funciones de RV ya existentes
 
-Phase 15 (gestión de clases por grado/fecha) permanece pausada; su migración SQL no se ha ejecutado en producción y no debe retomarse salvo petición expresa del usuario.
+- Taller con bloques Scratch 3D filtrados por grado: pinza MediaPipe para mover, dos manos para cambiar tamaño y rotar, y control de volteo; también admite ratón, tacto, teclado y controladores.
+- El uso de MediaPipe solicita permiso de cámara expresamente; el procesamiento es local y no graba ni transmite el video. Las transformaciones se guardan en el proyecto local nombrado y se restauran al abrirlo.
+
+## Consideraciones de verificación
+
+- No había un visor WebXR físico disponible en las pruebas; la ruta inmersiva no pudo probarse con hardware. El fallback 3D/pantalla completa sí se verificó en Chromium.
+- Los grados 9°–11° tienen menos misiones que 3°–8° en los datos actuales (una por grado); sus secciones de teoría, retos, quizzes y logros sí cargan. Si se desean seis misiones para cada grado alto, se necesitaría crear contenido adicional.
+- El progreso y los perfiles son locales al navegador/dispositivo; Phase 15 sigue pausada.
