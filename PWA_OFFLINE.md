@@ -8,7 +8,7 @@ La instalación y la primera preparación requieren conexión. Abre la página p
 
 - Misiones, teoría, retos, el taller y los proyectos locales.
 - Perfiles y progreso guardados en ese dispositivo/navegador.
-- El gato de Scratch y la escena de RV A-Frame después de preparar los recursos. Sin visor, la escena permanece disponible en pantalla.
+- El gato de Scratch y la escena de RV A-Frame después de preparar los recursos. Sin visor, la escena permanece disponible en pantalla; en móviles sin fullscreen nativo se abre en una vista adaptable con salida por botón o Escape.
 - Voz local del navegador y audios MP3 que ya se reprodujeron y quedaron en caché.
 - Control de manos, si MediaPipe y la cámara ya están disponibles; el video se procesa localmente y no se guarda ni se envía.
 
@@ -24,7 +24,7 @@ El control de manos es opcional. Para activarlo en línea se necesita HTTPS (loc
 
 ## Publicación y actualización
 
-Publica en la raíz `index.html`, `manifest.webmanifest`, `service-worker.js`, `assets/` y los demás archivos, conservando las rutas relativas. GitHub Pages con HTTPS y otros servidores HTTPS son válidos; `file://` no admite service workers. El app shell actual usa `scratchxr-offline-v24`. Al cambiar recursos precargados, incrementa `CACHE_NAME`; al activarse, el service worker elimina sus cachés anteriores sin borrar `localStorage` ni los perfiles/progresos locales.
+Publica en la raíz `index.html`, `manifest.webmanifest`, `service-worker.js`, `assets/` y los demás archivos, conservando las rutas relativas. GitHub Pages con HTTPS y otros servidores HTTPS son válidos; `file://` no admite service workers. El app shell actual usa `faunaxr-offline-v25`. Al cambiar recursos precargados, incrementa `CACHE_NAME`; al activarse, el service worker elimina sus cachés anteriores sin borrar `localStorage` ni los perfiles/progresos locales.
 
 ## Privacidad y almacenamiento
 

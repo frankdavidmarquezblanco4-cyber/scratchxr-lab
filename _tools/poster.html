@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Poster</title>
+<script type="module" src="../assets/vendor/model-viewer-4.0.0.min.js"></script>
+<style>
+  html,body{margin:0;height:100%;background:#eaf6ff}
+  .stage{position:relative;width:1000px;height:750px;overflow:hidden;background:
+    radial-gradient(120% 90% at 50% 18%, #ffffff 0%, #F2FAFF 42%, #DCEEFB 100%)}
+  .stage::before{content:"";position:absolute;inset:0;background:
+    radial-gradient(60% 40% at 50% 70%, rgba(11,107,203,.10), transparent 70%),
+    linear-gradient(transparent 0 0);}
+  .grid{position:absolute;inset:0;opacity:.35;background-image:
+    linear-gradient(rgba(11,107,203,.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(11,107,203,.07) 1px, transparent 1px);
+    background-size:50px 50px;mask-image:radial-gradient(70% 60% at 50% 55%, #000 30%, transparent 100%)}
+  .ring{position:absolute;left:50%;top:56%;width:520px;height:170px;transform:translate(-50%,-50%);
+    border:2px dashed rgba(0,183,255,.45);border-radius:50%}
+  .ring.two{width:640px;height:220px;border-color:rgba(11,107,203,.18)}
+  model-viewer{position:absolute;inset:0;width:100%;height:100%;--poster-color:transparent;--progress-bar-color:transparent;--progress-mask:transparent}
+  .label{display:none;position:absolute;left:44px;bottom:38px;font:800 22px/1 Inter,system-ui,sans-serif;color:#0B4C8A;letter-spacing:.02em}
+  .label small{display:block;font:700 13px/1.6 Inter,system-ui,sans-serif;color:#4A6580;letter-spacing:.16em;text-transform:uppercase}
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+  <div class="grid"></div><div class="ring two"></div><div class="ring"></div>
+  <model-viewer id="mv" alt="" environment-image="neutral" exposure="1.05" shadow-intensity="1.1" shadow-softness="0.95" interaction-prompt="none" camera-orbit="28deg 72deg auto" min-field-of-view="18deg" max-field-of-view="40deg"></model-viewer>
+  <div class="label"><small>SCRATCHXR · MODELO 3D</small><span id="cap"></span></div>
+</div>
+<script>
+  const params = new URLSearchParams(location.search);
+  const src = params.get('src');
+  const orbit = params.get('orbit');
+  const cap = params.get('name') || '';
+  const mv = document.getElementById('mv');
+  document.getElementById('cap').textContent = cap;
+  if (orbit) mv.setAttribute('camera-orbit', orbit);
+  mv.addEventListener('load', () => { window.__ready = true; }, { once: true });
+  mv.addEventListener('error', (e) => { window.__error = String(e.detail?.type || 'error'); });
+  mv.src = src;
+</script>
+</body>
+</html>

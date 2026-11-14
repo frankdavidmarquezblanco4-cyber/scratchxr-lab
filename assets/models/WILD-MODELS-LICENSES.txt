@@ -1,0 +1,72 @@
+FaunaXR · Modelos salvajes CC0
+
+Fuente: Grab3D (https://grab3d.com/models/animals/)
+
+Cada modelo de esta lista indica CC0 1.0 en su ficha de origen. CC0 permite reutilización y redistribución; se conservan los enlaces para trazabilidad.
+
+
+
+León: https://grab3d.com/models/animals/low-poly-lion/
+  Archivo: wild-lion.glb
+  GLB fuente: https://grab3d.com/dl/low-poly-lion/low-poly-lion.glb
+  Licencia: CC0 1.0 — https://creativecommons.org/publicdomain/zero/1.0/
+
+Tigre blanco: https://grab3d.com/models/animals/white-tiger/
+  Archivo: wild-tiger.glb
+  GLB fuente: https://grab3d.com/dl/white-tiger/white-tiger-light.glb
+  Licencia: CC0 1.0 — https://creativecommons.org/publicdomain/zero/1.0/
+
+Lobo: https://grab3d.com/models/animals/low-poly-wolf/
+  Archivo: wild-wolf.glb
+  GLB fuente: https://grab3d.com/dl/low-poly-wolf/low-poly-wolf.glb
+  Licencia: CC0 1.0 — https://creativecommons.org/publicdomain/zero/1.0/
+
+Elefante: https://grab3d.com/models/animals/low-poly-elephant/
+  Archivo: wild-elephant.glb
+  GLB fuente: https://grab3d.com/dl/low-poly-elephant/low-poly-elephant.glb
+  Licencia: CC0 1.0 — https://creativecommons.org/publicdomain/zero/1.0/
+
+Jirafa: https://grab3d.com/models/animals/giraffe/
+  Archivo: wild-giraffe.glb
+  GLB fuente: https://grab3d.com/dl/giraffe/giraffe-light.glb
+  Licencia: CC0 1.0 — https://creativecommons.org/publicdomain/zero/1.0/
+
+Rinoceronte: https://grab3d.com/models/animals/low-poly-rhino/
+  Archivo: wild-rhino.glb
+  GLB fuente: https://grab3d.com/dl/low-poly-rhino/low-poly-rhino.glb
+  Licencia: CC0 1.0 — https://creativecommons.org/publicdomain/zero/1.0/
+
+Panda: https://grab3d.com/models/animals/low-poly-panda/
+  Archivo: wild-panda.glb
+  GLB fuente: https://grab3d.com/dl/low-poly-panda/low-poly-panda.glb
+  Licencia: CC0 1.0 — https://creativecommons.org/publicdomain/zero/1.0/
+
+Tiburón blanco: https://grab3d.com/models/animals/low-poly-great-white-shark/
+  Archivo: wild-shark.glb
+  GLB fuente: https://grab3d.com/dl/low-poly-great-white-shark/low-poly-great-white-shark.glb
+  Licencia: CC0 1.0 — https://creativecommons.org/publicdomain/zero/1.0/
+
+Oso: https://grab3d.com/models/animals/low-poly-bear/
+  Archivo: wild-bear.glb
+  GLB fuente: https://grab3d.com/dl/low-poly-bear/low-poly-bear.glb
+  Licencia: CC0 1.0 — https://creativecommons.org/publicdomain/zero/1.0/
+
+Cocodrilo: https://grab3d.com/models/animals/crocodile/
+  Archivo: wild-crocodile.glb
+  GLB fuente: https://grab3d.com/dl/crocodile/crocodile-light.glb
+  Licencia: CC0 1.0 — https://creativecommons.org/publicdomain/zero/1.0/
+
+Gorila: https://grab3d.com/models/animals/gorilla/
+  Archivo: wild-gorilla.glb
+  GLB fuente: https://grab3d.com/dl/gorilla/gorilla-light.glb
+  Licencia: CC0 1.0 — https://creativecommons.org/publicdomain/zero/1.0/
+
+Cebra: https://grab3d.com/models/animals/zebra/
+  Archivo: wild-zebra.glb
+  GLB fuente: https://grab3d.com/dl/zebra/zebra-light.glb
+  Licencia: CC0 1.0 — https://creativecommons.org/publicdomain/zero/1.0/
+
+Guepardo: https://grab3d.com/models/animals/cheetah/
+  Archivo: wild-cheetah.glb
+  GLB fuente: https://grab3d.com/dl/cheetah/cheetah-light.glb
+  Licencia: CC0 1.0 — https://creativecommons.org/publicdomain/zero/1.0/

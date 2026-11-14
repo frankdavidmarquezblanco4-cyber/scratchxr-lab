@@ -1,19 +1,37 @@
 {
-  "id": "./",
-  "name": "SCRATCHXR LAB",
-  "short_name": "ScratchXR",
-  "description": "Laboratorio educativo de programación por bloques, 3D, RA y RV.",
+  "id": "./galeria-xr.html",
+  "name": "FaunaXR · Animales en 3D",
+  "short_name": "FaunaXR",
+  "description": "Explora animales salvajes y domésticos en 3D y realidad virtual.",
   "lang": "es",
-  "start_url": "./",
+  "start_url": "./galeria-xr.html",
   "scope": "./",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#0B6BCB",
+  "theme_color": "#07544D",
   "orientation": "any",
-  "categories": ["education", "learning"],
+  "categories": [
+    "education",
+    "learning"
+  ],
   "icons": [
-    { "src": "./assets/pwa/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "./assets/pwa/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "./assets/pwa/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    {
+      "src": "./assets/pwa/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./assets/pwa/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./assets/pwa/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ]
 }

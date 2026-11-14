@@ -1,65 +1,37 @@
-# SCRATCHXR LAB
+# FaunaXR
 
-Plataforma educativa web para aprender programación por bloques mediante misiones, teoría, retos, proyectos locales y experiencias de realidad virtual. Está dirigida a estudiantes de **3.º a 11.º grado** y funciona como un sitio estático instalable como PWA.
+FaunaXR es una galería web instalable para explorar animales domésticos y salvajes en 3D, RA y RV. Se distribuye como PWA estática, funciona sin cuenta en el modo local y permite subir modelos propios GLB al navegador.
 
-## Experiencia actual
+## Abrir en computadora
 
-- **Acceso público:** la pantalla inicial permite crear un perfil con apodo y grado, o elegir de una lista desplegable un perfil ya guardado en ese dispositivo para continuar aprendiendo. No requiere cuenta, código de aula ni aprobación docente. Se recomienda no escribir nombres legales, correos u otra información identificable.
-- **Perfil y progreso locales:** misiones completadas, puntuaciones, proyectos y preferencias se guardan en el almacenamiento de este navegador. No se sincronizan con Supabase ni se comparten automáticamente entre dispositivos. Al volver a abrir la app se puede reanudar el perfil elegido; usa **Cambiar perfil** en equipos compartidos. Los perfiles anteriores permanecen guardados en ese dispositivo.
-- **Contenido educativo:** misiones graduadas, teoría detallada, quizzes y retos con retroalimentación, insignias, racha, actividades diarias y taller de bloques 3D.
-- **Laboratorio de RV:** escena A-Frame con el gato de Scratch, bloques y diez estaciones educativas. Selecciona una estación apuntándola en la escena o usando los botones accesibles debajo de ella (ratón, tacto o teclado); revisa si está disponible según tu grado y abre los bloques relacionados en Teoría. Entra a RV inmersiva con un visor WebXR compatible y HTTPS; sin visor, explora en pantalla.
-- **Sin RA:** el acceso de realidad aumentada y la superposición de vídeo del Taller se retiraron de la experiencia pública.
-- **Control de manos opcional:** solo se activa si la persona lo decide, acepta el uso de cámara y concede el permiso nativo del navegador. El video se procesa en el dispositivo, no se graba ni se sube. El sitio también funciona sin cámara.
-- **Accesibilidad y audio:** lectura del navegador y archivos MP3 de misiones con fallback a la voz del navegador.
+Extrae el ZIP y ejecuta desde esta carpeta:
 
-## Acceso y privacidad
-
-La versión pública solicita únicamente un apodo y grado para crear un perfil local. El progreso permanece en el almacenamiento del navegador; borrar esos datos o cambiar de dispositivo puede eliminar el perfil local. Para transferir un proyecto, usa sus opciones locales de exportación/importación y guarda una copia segura.
-
-El inicio de sesión docente, las solicitudes de aprobación, el progreso compartido, los quizzes docentes sincronizados y las autorizaciones de cámara por docente ya no forman parte del flujo de esta versión. Su código y archivos SQL se conservan como legado para una posible restauración posterior, pero **no son necesarios para usar la aplicación**. Esta actualización no borra tablas ni datos existentes en Supabase y no ejecuta migraciones.
-
-## Compatibilidad
-
-- Se necesita un navegador moderno con WebGL para la escena 3D.
-- La RV inmersiva requiere HTTPS, un navegador con WebXR y un visor compatible. Si no hay visor, se mantiene la escena interactiva en pantalla; ese modo no inicia una sesión inmersiva.
-- La cámara para control de manos requiere HTTPS (o `localhost`), hardware compatible, consentimiento de la persona y permiso del navegador. Ratón, teclado y tacto siguen disponibles.
-- La voz depende de las voces instaladas en el navegador y sistema operativo.
-
-## PWA y uso sin conexión
-
-Abre el sitio una vez con internet y espera a que termine de preparar los recursos offline. La caché incluye el HTML, el gato de Scratch, las bibliotecas XR/MediaPipe y los recursos de instalación. Después se conservan localmente el contenido y los avances de ese navegador; los recursos MP3 se cachean al reproducirse en línea. Se necesita HTTPS o `localhost`; abrir `index.html` con `file://` no habilita la PWA. Consulta [`PWA_OFFLINE.md`](PWA_OFFLINE.md) para instalación y límites de almacenamiento.
-
-## Estructura del repositorio
-
-```text
-scratchxr-lab/
-├── index.html
-├── manifest.webmanifest
-├── service-worker.js
-├── PWA_OFFLINE.md
-├── assets/
-│   ├── audio/
-│   ├── models/scratch-cat.glb
-│   ├── pwa/
-│   └── vendor/       # bibliotecas locales y sus licencias
-└── supabase/          # SQL legado, no requerido por el modo público
+```bash
+python3 -m http.server 8000
 ```
 
-El modelo de gato está en `assets/models/scratch-cat.glb`. Revisa y conserva sus atribuciones/licencias antes de redistribuirlo. Las dependencias distribuidas localmente mantienen sus avisos en `assets/vendor/`.
+Abre `http://localhost:8000/` o `http://localhost:8000/galeria-xr.html`. La página raíz abre la galería de animales. Para instalarla, publica la carpeta completa en un alojamiento HTTPS y usa **Instalar app**; en iPhone/iPad, Safari → Compartir → **Agregar a pantalla de inicio**.
 
-## Publicar en GitHub Pages
+## Animales y realidad virtual
 
-1. Sube el contenido completo del proyecto a la raíz de un repositorio GitHub, conservando la estructura de `assets/` y `supabase/`.
-2. En **Settings → Pages**, elige **Deploy from a branch**, selecciona `main` y la carpeta `/(root)` y guarda.
-3. Espera a que termine el despliegue. Para un repositorio llamado `scratchxr-lab`, la URL suele ser `https://TU-USUARIO.github.io/scratchxr-lab/`.
-4. Tras actualizar el código, espera el build de Pages y recarga. La PWA actualiza su caché a través del Service Worker; si ves una versión anterior, cierra la instalación y vuelve a abrir el sitio conectado a internet.
+La galería incluye animales domésticos y 13 modelos salvajes adicionales: león, tigre blanco, lobo, elefante, jirafa, rinoceronte, panda, tiburón blanco, oso, cocodrilo, gorila, cebra y guepardo. Los modelos salvajes descargados desde Grab3D están publicados con licencia CC0; se conservan fichas y URLs en `assets/models/WILD-MODELS-LICENSES.txt`. El origen/licencia de los modelos heredados de pato y zorro requiere verificación antes de redistribuirlos por separado. El puma no se añadió aún porque no se encontró un archivo GLB redistribuible con licencia verificable en la fuente usada.
 
-Los sitios Pages son públicos por internet. No subas datos personales de estudiantes, contraseñas, claves privadas ni secretos al repositorio. Nunca incluyas claves Supabase `service_role` o `sb_secret_…` en código cliente.
+En la pestaña **Sala RV**, usa **Pantalla completa**. Aparecerán controles **Anterior**, selector del animal al frente y **Siguiente** dentro de la pantalla completa. En un visor WebXR compatible, los botones flotantes **ANTERIOR** y **SIGUIENTE** aparecen frente a la cámara, y también se puede seleccionar una estación apuntando con el control.
 
-## Audios de misiones
+## Subir diseños propios
 
-El botón **Escuchar** reproduce `assets/audio/<id-de-la-misión>.mp3` si existe; de lo contrario usa la voz del navegador. La carpeta [`assets/audio/README.md`](assets/audio/README.md) contiene el inventario de nombres de archivo y las instrucciones para generar y subir los audios.
+En **Mis modelos**, sube archivos `.glb` de hasta 60 MB. Se guardan en IndexedDB del navegador y quedan disponibles en la galería y modos 3D/RA/RV. No se envían a un servidor ni se sincronizan con otros dispositivos. Los perfiles y favoritos también son locales.
 
-## Backend legado
+## Modo sin conexión
 
-Los archivos `supabase/phase-11d.sql` y `supabase/phase-12-access-realtime.sql` a `phase-14-individual-camera-permissions.sql` describen las funciones en línea de versiones anteriores. `SUPABASE_SETUP.md` se conserva como referencia histórica; sus pasos de autenticación docente y aprobación no se aplican a la versión pública actual. No apliques migraciones para habilitar el acceso libre.
+Abre la app en HTTPS o localhost una vez con conexión para instalar el service worker. Se preparan la página, librerías y miniaturas; los modelos 3D se cachean a medida que se abren. El modo offline depende de que el navegador conserve el espacio de caché.
+
+## Estructura
+
+- `galeria-xr.html`: galería, perfiles, modelos, RA, RV, control de manos y carga GLB.
+- `index.html`: entrada que redirige a la galería.
+- `scratch-programming-legacy.html`: copia de la antigua página Scratch, archivada y fuera del flujo principal.
+- `manifest.webmanifest`, `service-worker.js`: instalación PWA y recursos offline.
+- `assets/models/`: modelos, miniaturas y licencias.
+
+El modelo del gato Scratch original conserva su atribución/licencia. FaunaXR no afirma afiliación con Scratch Foundation.

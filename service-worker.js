@@ -1,15 +1,43 @@
-/* SCRATCHXR LAB · PWA offline cache */
+/* FaunaXR · PWA offline cache */
 'use strict';
 
-const CACHE_NAME = 'scratchxr-offline-v24';
+const CACHE_NAME = 'faunaxr-offline-v32';
 const APP_SHELL = [
   './',
   './index.html',
+  './galeria-xr.html',
   './manifest.webmanifest',
   './assets/pwa/icon-192.png',
   './assets/pwa/icon-512.png',
   './assets/pwa/icon-maskable-512.png',
   './assets/models/scratch-cat.glb',
+  './assets/models/LowPolyRabbit.glb',
+  './assets/models/LowPolyChicken.glb',
+  './assets/models/LowPolyCow.glb',
+  './assets/models/LowPolyHorse.glb',
+  './assets/models/Duck.glb',
+  './assets/models/Fox.glb',
+  './assets/models/scratch-cat.webp',
+  './assets/models/dog.webp',
+  './assets/models/rabbit.webp',
+  './assets/models/chicken.webp',
+  './assets/models/cow.webp',
+  './assets/models/horse.webp',
+  './assets/models/wild-lion.webp',
+  './assets/models/wild-tiger.webp',
+  './assets/models/wild-wolf.webp',
+  './assets/models/wild-elephant.webp',
+  './assets/models/wild-giraffe.webp',
+  './assets/models/wild-rhino.webp',
+  './assets/models/wild-panda.webp',
+  './assets/models/wild-shark.webp',
+  './assets/models/wild-bear.webp',
+  './assets/models/wild-crocodile.webp',
+  './assets/models/wild-gorilla.webp',
+  './assets/models/wild-zebra.webp',
+  './assets/models/wild-cheetah.webp',
+  './assets/models/duck.webp',
+  './assets/models/fox.webp',
   './assets/vendor/model-viewer-4.0.0.min.js',
   './assets/vendor/aframe-1.7.0.min.js',
   './assets/vendor/aframe/fonts/Roboto-msdf.json',
@@ -33,7 +61,7 @@ self.addEventListener('install', event => {
 self.addEventListener('activate', event => {
   event.waitUntil((async () => {
     const names = await caches.keys();
-    await Promise.all(names.filter(name => name.startsWith('scratchxr-offline-') && name !== CACHE_NAME).map(name => caches.delete(name)));
+    await Promise.all(names.filter(name => (name.startsWith('scratchxr-offline-') || name.startsWith('faunaxr-offline-')) && name !== CACHE_NAME).map(name => caches.delete(name)));
     await self.clients.claim();
   })());
 });
@@ -67,7 +95,9 @@ self.addEventListener('fetch', event => {
         if (response.ok) await cache.put(request, response.clone());
         return response;
       } catch (_) {
-        return (await cache.match(request)) || (await cache.match(new URL('./index.html', self.registration.scope).href)) || new Response('SCRATCHXR LAB no está disponible sin conexión todavía. Abre la aplicación una vez con internet para preparar el modo offline.', { status: 503, headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
+        const isGallery = new URL(request.url).pathname.endsWith('/galeria-xr.html');
+        const fallbackPage = isGallery ? './galeria-xr.html' : './index.html';
+        return (await cache.match(request)) || (await cache.match(new URL(fallbackPage, self.registration.scope).href)) || new Response('FaunaXR no está disponible sin conexión todavía. Abre la aplicación una vez con internet para preparar el modo offline.', { status: 503, headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
       }
     })());
     return;
